@@ -32,7 +32,12 @@ export class ItemsFormComponent implements OnInit {
   }
 
   normalizeItems(word: string): string {
-    return word.toLowerCase().replace(/\./g, '').trim();
+    return word
+      .toLowerCase()
+      .normalize('NFD')                       // Separa letras y acentos
+      .replace(/[\u0300-\u036f]/g, '')        // Elimina los acentos
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '') // Quita signos de puntuación
+      .trim()
   }
 
   handleItemsSubmitted(items: string[]) {
