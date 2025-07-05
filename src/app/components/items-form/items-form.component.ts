@@ -31,8 +31,12 @@ export class ItemsFormComponent implements OnInit {
     })
   }
 
+  normalizeItems(word: string): string {
+    return word.toLowerCase().replace(/\./g, '').trim();
+  }
+
   handleItemsSubmitted(items: string[]) {
-    this.allItems.push(...items)
+    this.allItems.push(...items.map(item => this.normalizeItems(item)));
 
     if (this.currentPlayerIndex < this.players.length - 1) {
       this.currentPlayerIndex++;
@@ -45,7 +49,8 @@ export class ItemsFormComponent implements OnInit {
     const seen = new Set<string>()
     const duplicates = new Set<string>()
 
-    for (const item of arr) {
+    for (const rawItem of arr) {
+      const item = this.normalizeItems(rawItem)
       if (seen.has(item)) {
         duplicates.add(item)
       } else {
@@ -97,8 +102,8 @@ export class ItemsFormComponent implements OnInit {
   checkDuplicates() {
     this.editedDuplicates = this.editedDuplicatesText
       .split('\n')
-      .map(w => w.trim())
-      .filter(w => w !== '');
+      .map(i => this.normalizeItems(i))
+      .filter(i => i !== '');
 
     // 1) Eliminar del array original las palabras duplicadas detectadas anteriormente
     const cleanedItems = this.allItems.filter(
