@@ -1,0 +1,20 @@
+textarea {
+  height: 80px;
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+  font-size: medium;
+  background-color: #0a0a0b;
+  color: #f0f0f0
+}
+
+button {
+  width: 50%;
+  height: 30px;
+  background-color: #09169b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

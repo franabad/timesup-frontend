@@ -1,0 +1,33 @@
+<main class="main">
+  <section>
+    <form class="n-players-form" [formGroup]="drawTeamsGroup" (ngSubmit)="drawTeams(players.value)">
+      <div formArrayName="players" class="n-players-container">
+        <label class="n-players-label">Name of Players</label>
+        <div *ngFor="let player of players.controls; let i = index" class="input-container">
+          <input type="text" class="n-players-input" [placeholder]="'Player ' + (i + 1)" [formControlName]="i" />
+          @if (i === players.controls.length - 1) {
+          <button type="button" class="manage-players-button" (click)="addPlayer()">+</button>
+          }
+          @if (i === players.controls.length - 1 && i >= 4) {
+          <button type="button" class="manage-players-button" (click)="removePlayer(i)">-</button>
+          }
+        </div>
+      </div>
+      <button type="submit" class="draw-teams-button">Draw Teams</button>
+    </form>
+
+    @if (showTeamsModal) {
+    <div class="modal-backdrop">
+      <div class="modal">
+        <h3>Teams Drawn</h3>
+        <ul>
+          @for (team of teams | keyvalue; track team) {
+          <li>{{ team.key }}: {{ team.value }}</li>
+          }
+        </ul>
+        <button class="draw-teams-button" (click)="closeModal()">Close</button>
+      </div>
+    </div>
+    }
+  </section>
+</main>

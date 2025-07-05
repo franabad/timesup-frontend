@@ -1,0 +1,9 @@
+<form [formGroup]="itemsForm" (ngSubmit)="onSubmit()">
+  <label>
+    Items para {{ player }}:
+    <textarea type="text" formControlName="items" placeholder="Write your items here..."></textarea>
+  </label>
+  <button type="submit">
+    {{ isLastPlayer ? 'Finish' : 'Next Player' }}
+  </button>
+</form>

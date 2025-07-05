@@ -1,0 +1,22 @@
+<section>
+  @if (players.length > 0) {
+  <app-items-input [player]="players[currentPlayerIndex]" (itemsSubmitted)="handleItemsSubmitted($event)"
+    [isLastPlayer]="isLastPlayer"></app-items-input>
+  }
+
+  @if (showDuplicatesModal) {
+  <div class="modal-backdrop">
+    <div class="modal">
+      @if (duplicates.length === 0) {
+      <h3>No Duplicate Items Found</h3>
+      <button (click)="closeModal()">FInalizar</button>
+      } @else {
+      <h3>Duplicate Items Found</h3>
+      <p>{{ duplicates.join(', ')}}</p>
+      <textarea [(ngModel)]="editedDuplicatesText"></textarea>
+      <button (click)="checkDuplicates()">Check New Words</button>
+      }
+    </div>
+  </div>
+  }
+</section>
