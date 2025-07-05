@@ -32,12 +32,16 @@ export class ItemsFormComponent implements OnInit {
   }
 
   normalizeItems(word: string): string {
-    return word
-      .toLowerCase()
-      .normalize('NFD')                       // Separa letras y acentos
-      .replace(/[\u0300-\u036f]/g, '')        // Elimina los acentos
-      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '') // Quita signos de puntuación
-      .trim()
+    word = word.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // minúsculas y sin tildes
+    word = word.replace(/[.]/g, ''); // eliminar puntos
+
+    // Quitar artículos solo al inicio, aunque estén pegados sin espacios
+    word = word.replace(/^(el|la|los|las|un|una|unos|unas)/, '');
+
+    // También eliminar espacios sobrantes al inicio y fin
+    word = word.trim();
+
+    return word;
   }
 
   handleItemsSubmitted(items: string[]) {
